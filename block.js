@@ -38,7 +38,9 @@ const block1 = new Block(
     });
 // const block2 = new Block("11/10/22","0xc12","0x123","World");
 // console.log(block1);
-const genesisBlock = Block.genesis();
-console.log(genesisBlock)
+// const genesisBlock = Block.genesis();
+// console.log(genesisBlock)
 
-console.log(Block.mineBlock({prevBlock: block1, data: "Block2"}))
+// console.log(Block.mineBlock({prevBlock: block1, data: "Block2"}))
+
+module.exports = Block;
