@@ -1,22 +1,55 @@
-const Block = require('./block');
+const Block = require("./block");
+const { cryptoHash } = require("./crypto-hash");
 
-class Blockchain{
-    constructor(){
-        this.chain = [Block.genesis()]; //adding the genesis block to the blockchain array
+class Blockchain {
+  constructor() {
+    this.chain = [Block.genesis()]; //adding the genesis block to the blockchain array
+  }
+
+  //adding subsequent blocks in this function
+  addBlock({ data }) {
+    const newBlock = Block.mineBlock({
+      prevBlock: this.chain[this.chain.length - 1], //this is same as this.chain[0] which is the genesis block
+      data,
+    });
+    this.chain.push(newBlock);
+  }
+
+  //Function to check if the block is valid or not
+  static isValidChain(chain) {
+    //checking that the first block in the new chain is equal to the genesis block or not
+    if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
+      return false;
     }
 
-    //adding subsequent blocks in this function
-    addBlock({ data }){
-        const newBlock = Block.mineBlock({ 
-            prevBlock: this.chain[this.chain.length-1], //this is same as this.chain[0] which is the genesis block
-            data
-        })
-        this.chain.push(newBlock);
+    //now lets validate the chains following the genesis block
+    for (let i = 1; i < chain.length; i++) {
+      const { timestamp, prevHash, hash, data } = chain[i]; //destructuring the chain object
+      const realPrevHash = chain[i - 1].hash;
+
+      //checking whether prevHash of current block is equal to hash of previous block or not
+      if (realPrevHash !== prevHash) {
+        // console.log( prevHash );
+        return false;
+      }
+
+      //storing the hash generated through SHA256 algo
+      const validatedHash = cryptoHash(timestamp, prevHash, data);
+
+      //now validating the hash generated through SHA256 for current block and the hash already in the current block explicitly to prevent any hacks
+      if (hash !== validatedHash) {
+        return false;
+      }
     }
+    return true;
+  }
 }
 
 const blockchain = new Blockchain();
-blockchain.addBlock({ data:"Block1"})
-console.log(blockchain);
+blockchain.addBlock({ data: "Block1" });
+// console.log(blockchain);
+const result = Blockchain.isValidChain(blockchain.chain);
+console.log(result);
+console.log(blockchain.chain);
 
 module.exports = Blockchain;
