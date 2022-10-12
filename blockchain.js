@@ -15,6 +15,22 @@ class Blockchain {
     this.chain.push(newBlock);
   }
 
+  //checking that incoming chain follows the longest chain rule
+  replaceChain(chain){
+    if(chain.length <= this.chain.length){
+        console.error("This incoming Chain doesnt follow the longest Chain rule")
+        return;
+    }
+
+    //check to find the longest chain is not mailicious and is valid
+    if(!Blockchain.isValidChain(chain)){
+        console.error("The incoming chain is not valid")
+        return;
+    }
+    this.chain = chain;
+  }
+
+
   //Function to check if the block is valid or not
   static isValidChain(chain) {
     //checking that the first block in the new chain is equal to the genesis block or not
