@@ -2,14 +2,16 @@ const {GENESIS_BLOCK} = require('./config');
 const {cryptoHash} = require('./crypto-hash');
 
 class Block{
-    constructor({timestamp, prevHash, hash, data}){
+    constructor({timestamp, prevHash, hash, nonce, difficulty, data }){
         this.timestamp = timestamp;
         this.prevHash = prevHash;
         this.hash = hash;
-        this.data = data;
+        this.nonce = nonce;
+        this.difficulty = difficulty;
+        this.data = data;    
     }
 
-    //this static function is used to prevent the function from being everytime there is a new object/block created 
+    //the static function is used to call the function as a whole of the class an not as any instance if the class when an object is created 
     static genesis(){
         return new this(GENESIS_BLOCK);
     }
