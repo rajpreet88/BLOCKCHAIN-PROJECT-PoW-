@@ -18,9 +18,7 @@ for (let i = 0; i < 1000; i++) {
   timeDifference = nextBlockTimestamp - prevBlockTimestamp;
   times.push(timeDifference);
 
-  avgTime =
-    times.reduce((prevValue, currentValue) => prevValue + currentValue) /
-    times.length;
+  avgTime = times.reduce((prevValue, currentValue) => prevValue + currentValue) / times.length;
   
     console.log(
     `Time to mine Block${i}: ${timeDifference}ms, Difficulty: ${nextBlock.difficulty}, Average Time: ${avgTime}ms`
