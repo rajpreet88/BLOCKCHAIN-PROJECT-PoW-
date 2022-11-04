@@ -16,20 +16,19 @@ class Blockchain {
   }
 
   //checking that incoming chain follows the longest chain rule
-  replaceChain(chain){
-    if(chain.length <= this.chain.length){
-        console.error("This incoming Chain doesnt follow the longest Chain rule")
-        return;
+  replaceChain(chain) {
+    if (chain.length <= this.chain.length) {
+      console.error("This incoming Chain doesnt follow the longest Chain rule");
+      return;
     }
 
     //check to find the longest chain is not mailicious and is valid
-    if(!Blockchain.isValidChain(chain)){
-        console.error("The incoming chain is not valid")
-        return;
+    if (!Blockchain.isValidChain(chain)) {
+      console.error("The incoming chain is not valid");
+      return;
     }
     this.chain = chain;
   }
-
 
   //Function to check if the block is valid or not
   static isValidChain(chain) {
@@ -50,7 +49,8 @@ class Blockchain {
       }
 
       //storing the hash generated through SHA256 algo
-      const validatedHash = '0x'+cryptoHash(timestamp, prevHash, nonce, difficulty, data);
+      const validatedHash =
+        "0x" + cryptoHash(timestamp, prevHash, nonce, difficulty, data);
 
       //now validating the hash generated through SHA256 for current block and the hash already in the current block explicitly to prevent any hacks
       if (hash !== validatedHash) {

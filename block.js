@@ -1,4 +1,4 @@
-const { GENESIS_BLOCK } = require("./config");
+const { GENESIS_BLOCK, MINE_RATE } = require("./config");
 const { cryptoHash } = require("./crypto-hash");
 
 class Block {
@@ -45,9 +45,16 @@ class Block {
       nonce,
       difficulty,
       data,
-      hash:"0x"+hash,
+      hash: "0x" + hash,
     });
   }
+
+  // Adjust difficulty as per the hashing rate or time taken to mine a block
+  static adjustDifficulty(){
+
+  }
+
+
 }
 
 //creating object of the Block Class to call the constructor
