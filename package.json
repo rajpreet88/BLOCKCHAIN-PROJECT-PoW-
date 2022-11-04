@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/rajpreet88/BLOCKCHAIN-PROJECT-PoW-/issues"
   },
-  "homepage": "https://github.com/rajpreet88/BLOCKCHAIN-PROJECT-PoW-#readme"
+  "homepage": "https://github.com/rajpreet88/BLOCKCHAIN-PROJECT-PoW-#readme",
+  "dependencies": {
+    "hex-to-binary": "^1.0.1"
+  }
 }

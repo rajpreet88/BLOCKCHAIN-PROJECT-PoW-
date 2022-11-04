@@ -24,3 +24,7 @@ for (let i = 0; i < 1000; i++) {
     `Time to mine Block${i}: ${timeDifference}ms, Difficulty: ${nextBlock.difficulty}, Average Time: ${avgTime}ms`
   );
 }
+
+
+
+// install a library <npm i hex-to-binary@1.0.1 --save> to have more control on the difficulty since binary providees greater control on the difficulty
