@@ -21,14 +21,18 @@ class Block {
     let hash, timestamp;
     // const timestamp = Date.now();
     let nonce = 0;
-    const { difficulty } = prevBlock;
+    let { difficulty } = prevBlock;
     const prevHash = prevBlock.hash;
 
     //now looping the nonce to solve the difficulty to generate the current hash while mining the block
-    //the loop is repeated to generate the hash until the first 2 chars in the hash matches 00 to solve the mathematical problem to getting the nearest hash as per the difficulty set
+    //the loop is repeated to generate the hash until the first n(difficulty) chars in the hash matches 00 to solve the mathematical problem to getting the nearest hash as per the difficulty set
     do {
       nonce++;
       timestamp = Date.now();
+      difficulty = Block.adjustDifficulty({
+        originalBlock: prevBlock,
+        timestamp,
+      });
       hash = cryptoHash(timestamp, prevHash, nonce, difficulty, data);
     } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
     // return new Block({
@@ -50,11 +54,14 @@ class Block {
   }
 
   // Adjust difficulty as per the hashing rate or time taken to mine a block
-  static adjustDifficulty(){
+  static adjustDifficulty({ originalBlock, timestamp }) {
+    const { difficulty } = originalBlock;
 
+    const difference = timestamp - originalBlock.timestamp;
+    if (difficulty < 1) return 1;
+    if (difference > MINE_RATE) return difficulty - 1;
+    return difficulty + 1;
   }
-
-
 }
 
 //creating object of the Block Class to call the constructor
