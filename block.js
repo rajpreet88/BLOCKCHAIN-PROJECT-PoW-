@@ -1,5 +1,10 @@
 const { GENESIS_BLOCK, MINE_RATE } = require("./config");
 const { cryptoHash } = require("./crypto-hash");
+// install a library <npm i hex-to-binary@1.0.1 --save> to have more control on the difficulty since binary providees greater control on the difficulty
+const hexToBinary = require('hex-to-binary');
+
+/************************************************************************** */
+
 
 class Block {
   constructor({ timestamp, prevHash, hash, nonce, difficulty, data }) {
@@ -34,7 +39,7 @@ class Block {
         timestamp,
       });
       hash = cryptoHash(timestamp, prevHash, nonce, difficulty, data);
-    } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
+    } while (hexToBinary(hash).substring(0, difficulty) !== "0".repeat(difficulty));
     // return new Block({
     //     timestamp,
     //     prevHash,

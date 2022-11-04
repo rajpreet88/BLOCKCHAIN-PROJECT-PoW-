@@ -3,7 +3,7 @@ const blockchain = new Blockchain();
 
 // added a block initially to decrease the time difference. If no block in added initially then the UNIX timestamp will fetch the timeDifference from current/next block and genesis block which we have set to 1.
 blockchain.addBlock({ data: `Black Panther: Wakanda Forever` });
-// console.log(blockchain);
+console.log(blockchain.chain[blockchain.chain.length-1]);
 
 let prevBlockTimestamp, nextBlockTimestamp, nextBlock, timeDifference, avgTime;
 
@@ -27,4 +27,3 @@ for (let i = 0; i < 1000; i++) {
 
 
 
-// install a library <npm i hex-to-binary@1.0.1 --save> to have more control on the difficulty since binary providees greater control on the difficulty
