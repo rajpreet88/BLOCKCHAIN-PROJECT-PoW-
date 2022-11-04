@@ -50,7 +50,7 @@ class Blockchain {
       }
 
       //storing the hash generated through SHA256 algo
-      const validatedHash = cryptoHash(timestamp, prevHash, nonce, difficulty, data);
+      const validatedHash = '0x'+cryptoHash(timestamp, prevHash, nonce, difficulty, data);
 
       //now validating the hash generated through SHA256 for current block and the hash already in the current block explicitly to prevent any hacks
       if (hash !== validatedHash) {
@@ -63,6 +63,8 @@ class Blockchain {
 
 const blockchain = new Blockchain();
 blockchain.addBlock({ data: "Block1" });
+blockchain.addBlock({ data: "Block2" });
+blockchain.addBlock({ data: "Block3" });
 // console.log(blockchain);
 const result = Blockchain.isValidChain(blockchain.chain);
 console.log(result);
