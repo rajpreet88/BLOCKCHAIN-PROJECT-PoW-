@@ -4,8 +4,11 @@ const Blockchain = require('./blockchain');
 const PORT = 8000;
 const app = express();
 
+//blockchain object
+const blockchain = new Blockchain();
+
 app.get('/api/blocks',(req,res)=>{
-    res(Blockchain.chain)
+    res.json(blockchain.chain)
 })
 
 app.listen(PORT,()=>{
