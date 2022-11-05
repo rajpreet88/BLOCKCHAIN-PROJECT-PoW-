@@ -53,7 +53,7 @@ class Blockchain {
 
       //storing the hash generated through SHA256 algo
       const validatedHash =
-        "0x" + cryptoHash(timestamp, prevHash, nonce, difficulty, data);
+        '0x'+cryptoHash(timestamp, prevHash, nonce, difficulty, data);
 
       //validating that the difficulty is not tampered by the miner for too high or too low as malicious activity
       if(Math.abs(lasDifficulty-difficulty)>1){
@@ -72,7 +72,6 @@ class Blockchain {
 const blockchain = new Blockchain();
 blockchain.addBlock({ data: "Block1" });
 blockchain.addBlock({ data: "Block2" });
-blockchain.addBlock({ data: "Block3" });
 // console.log(blockchain);
 // const result = Blockchain.isValidChain(blockchain.chain);
 // console.log(result);

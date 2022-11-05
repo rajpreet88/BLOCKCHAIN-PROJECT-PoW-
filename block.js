@@ -54,7 +54,7 @@ class Block {
       nonce,
       difficulty,
       data,
-      hash: "0x" + hash,
+      hash:'0x'+ hash,
     });
   }
 
