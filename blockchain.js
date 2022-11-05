@@ -40,6 +40,9 @@ class Blockchain {
     //now lets validate the chains following the genesis block
     for (let i = 1; i < chain.length; i++) {
       const { timestamp, prevHash, hash, nonce, difficulty, data } = chain[i]; //destructuring the chain object
+
+      const lasDifficulty = chain[i-1].difficulty;
+
       const realPrevHash = chain[i - 1].hash;
 
       //checking whether prevHash of current block is equal to hash of previous block or not
@@ -51,6 +54,11 @@ class Blockchain {
       //storing the hash generated through SHA256 algo
       const validatedHash =
         "0x" + cryptoHash(timestamp, prevHash, nonce, difficulty, data);
+
+      //validating that the difficulty is not tampered by the miner for too high or too low as malicious activity
+      if(Math.abs(lasDifficulty-difficulty)>1){
+        return false;
+      }
 
       //now validating the hash generated through SHA256 for current block and the hash already in the current block explicitly to prevent any hacks
       if (hash !== validatedHash) {
